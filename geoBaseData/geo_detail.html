@@ -1,0 +1,40 @@
+<!-- GEO Example Detailed View -->
+<html>
+	<head>
+		<link href="geo_detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		function display() {
+		  var src = data.get("Image");
+		  var body = document.getElementById("main");
+		  body.style.background = "url(" + src + ")";
+
+		  document.getElementById("TITLE").innerHTML = data.get("Description");
+		  document.getElementById("FIELD_1").innerHTML = data.get("Location_Latitude");
+		  document.getElementById("FIELD_2").innerHTML = data.get("Location_Longitude");
+		  document.getElementById("FIELD_3").innerHTML = data.get("Location_Altitude");
+		  document.getElementById("FIELD_4").innerHTML = data.get("Location_Accuracy");
+	
+		  //Use the following lines of code to query a table/get the number of rows of the resulting table
+		  /*
+		  var query = "COL_NAME:" + data.get("COL_NAME");
+		  var results = control.query("TABLE_NAME", query);
+		  document.getElementById("NUM_OF_LINES").innerHTML = results.getCount();
+		  */
+		}
+		</script>
+	</head>
+<body id="main" onload="display();">
+	<div class="transparent">
+		<h1><span id="TITLE"></span></h1>
+		<!-- To query and link to the result, replace the placeholders and put the following around the <span></span> tags.
+		<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"></a>
+		
+		Example:<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"><span id="FIELD_1"></span></a>
+		-->
+		<p>Latitude: <span id="FIELD_1"></span></p>
+		<p>Longitude: <span id="FIELD_2"></span></p>
+		<p>Altitude: <span id="FIELD_3"></span></p>
+		<p>Accuracy: <span id="FIELD_4"></span></p>
+	</div>
+</body>
+</html>

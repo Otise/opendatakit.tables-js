@@ -1,0 +1,35 @@
+<!-- TBL_IV_REF Detailed View -->
+<html>
+	<head>
+		<link href="detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		function display() {
+		  document.getElementById("TITLE").innerHTML = data.get("household_id");
+		  
+		  // We're going to get the type name from the Tea Types table.
+		  document.getElementById("FIELD_1").innerHTML = data.get("household_id");
+      document.getElementById("FIELD_2").innerHTML = data.get("owner");
+
+	
+		  //Use the following lines of code to query a table/get the number of rows of the resulting table
+		  /*
+		  var query = "COL_NAME:" + data.get("COL_NAME");
+		  var results = control.query("TABLE_NAME", query);
+		  document.getElementById("NUM_OF_LINES").innerHTML = results.getCount();
+		  */
+		}
+		</script>
+	</head>
+<body onload="display();">
+	<h1><span id="TITLE"></span></h1>
+	<!-- To query and link to the result, replace the placeholders and put the following around the <span></span> tags.
+	<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"></a>
+	
+	Example:<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"><span id="FIELD_1"></span></a>
+	-->
+	<p>Household ID: <span id="FIELD_1"></span></p>
+	<p>Owner: <span id="FIELD_2"></span>
+  <p>
+  <button type="button" onclick="data.editRowWithSurveyAndSpecificForm('household_new', null)">Edit Row With Survey</button>
+</body>
+</html>

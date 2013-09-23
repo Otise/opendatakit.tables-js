@@ -1,0 +1,67 @@
+<!--Homescreen-->
+
+<html>
+	<head>
+		<link href="homescreen.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+
+			/*	Called to display elements when page loads */
+			function display() {
+
+				/*	Creates button that launches specific Collect form */
+				var button1 = document.createElement("button");
+				button1.innerHTML = "BUTTON_TEXT";
+				/*	
+         * 'TABLE_NAME': Name of specific table - form responses will be saved to this table
+				 * 'FORM_ID': either set in XLSForm settings or same as the name of the form shown to the user
+				 * 'FORM_VERSION': null if not specified in XLSForm settings
+				 * 'FORM_ROOT_ELEMENT': same as FORM_ID for XLSForm
+				 */
+				button1.onclick = function() {
+					control.addRowWithCollectAndSpecificForm('TABLE_NAME', 'FORM_ID', 'FORM_VERSION', 'FORM_ROOT_ELEMENT');
+				}
+				document.getElementById("wrapper").appendChild(button1);	
+
+				/*	
+         * Creates button that opens table specified by the 'TABLE_NAME' and 
+         * searches this table with the given query. Uses the default view 
+         * specified on the table. E.g. if it has been set to map view, the 
+         * table will be opened to map view.
+				 */
+				var button2 = document.createElement("button");
+				button2.innerHTML = "BUTTON_TEXT";
+				/*	
+         * Specify 'TABLE_NAME'.
+				 * Enter null for 'QUERY' parameter to launch listview of all table 
+         * entries.
+				 */
+				button2.onclick = function() {
+					control.openTableToListViewWithFile('TABLE_NAME', 'QUERY');
+				}
+				document.getElementById("wrapper").appendChild(button2);	
+
+				/*
+         * Creates button that opens table specified by 'TABLE_NAME' as a list
+         * view with the filename specified by 'FILE_NAME'.
+         */
+				var button3 = document.createElement("button");
+				button3.innerHTML = "BUTTON_TEXT";
+				/*	
+         * 'FILE_NAME': filename is relative to the ODK tables path
+				 * Enter null for 'QUERY' parameter to launch listview of all table 
+         * entries.
+				 */
+				button3.onclick = function() {
+					control.openTableToListViewWithFile('TABLE_NAME', 'QUERY', 'FILE_NAME');
+				}
+				document.getElementById("wrapper").appendChild(button3);	
+			}
+
+		</script>
+	</head>
+	<body onload="display();">
+		<!--'TITLE' displayed as page heading-->
+		<h1>TITLE</h1>
+		<div id="wrapper"></div>
+	</body>
+</html>

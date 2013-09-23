@@ -1,0 +1,71 @@
+<!-- Detail View -->
+<html>
+	<head>
+		<link href="detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+			
+			/*	Displays detail view when page loads */
+			function display() {
+
+				/*	
+         * If there are images you want to use as a background of this view,
+         * include the following block of code:
+         * var src = data.get("COLUMN_WITH_IMAGE_PATH");
+         * var body = document.getElementById("main");
+         * body.style.backgroundImage = "url(" + src + ")";
+				 */
+				  
+				/*	
+         * The following lines of code simply retrieve data from the given 
+         * COLUMN_NAME and inserts it into the page where specified (by the 
+         * element id). You can duplicate/delete these lines of code, but make 
+         * sure to update the html to reflect the changes as well (add/delete 
+         * elements as needed).
+				 */
+				document.getElementById("TITLE").innerHTML = data.get("COLUMN_NAME");
+				document.getElementById("FIELD_1").innerHTML = data.get("COLUMN_NAME");
+				document.getElementById("FIELD_2").innerHTML = data.get("COLUMN_NAME");
+				document.getElementById("FIELD_3").innerHTML = data.get("COLUMN_NAME");
+				document.getElementById("FIELD_4").innerHTML = data.get("COLUMN_NAME");
+
+				/*	
+         * Use the following lines of code to query any table. You can also get 
+         * the number of rows (getCount) of that resulting table to use.
+         * var query = "COL_NAME:" + data.get("COL_NAME");
+         * var results = control.query("TABLE_NAME", query);
+         * document.getElementById("NUM_OF_LINES").innerHTML = results.getCount();
+				 */
+
+				/*	
+         * Creates button that opens table specified by the 'TABLE_NAME' and 
+         * searches this table with the given query.
+				 * Uses the default view specified on the table.
+				 * E.g. if it has been set to map view, the table will be opened to map 
+         * view.
+				 */
+				var button1 = document.createElement("button");
+				button1.onclick = function() {
+					control.openTable('TABLE_NAME', "COLUMN_NAME:" + data.get("COLUMN_NAME") + "");
+				}
+				button1.innerHTML = "BUTTON_TEXT";
+				document.getElementById("wrapper").appendChild(button1);
+			}
+
+		</script>
+	</head>
+	<body id="main" onload="display();">
+		<div class="transparent">
+			<h1><span id="TITLE"></span></h1>
+			<!-- To query and link to the result, replace the placeholders and put the following around the <span></span> tags.
+			<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"></a>
+	
+			Example:<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"><span id="FIELD_1"></span></a>
+			-->
+			<p>FIELD1: <span id="FIELD_1"></span></p>
+			<p>FIELD2: <span id="FIELD_2"></span></p>
+			<p>FIELD3: <span id="FIELD_3"></span></p>
+			<p>FIELD4: <span id="FIELD_4"></span></p>
+		</div>
+		<div id="wrapper"></div>
+	</body>
+</html>

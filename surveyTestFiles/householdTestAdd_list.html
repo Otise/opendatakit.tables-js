@@ -1,0 +1,112 @@
+<!--Chunked List View-->
+<html>
+	<head>
+		<link href="list.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		
+			/*	Open the item specified by the index to the detail view (Nothing to edit here) */
+			function handleClick(index) {
+				control.openItem(index);
+			}
+      
+      function handleAddRowWithPrepopulatedForms(tableName, formId, screenPath, mapStr) {
+        data.addRowWithSurveyAndSpecificFormAndPrepopulatedValues(tableName,
+                                                                   formId,
+                                                                   screenPath,
+                                                                   mapStr);
+      }
+      
+      function handleEditRowButtonClick(index) {
+        data.editRowWithSurveyAndSpecificForm(index, 'household_new', null, null, null);
+        var e = window.event;
+        e.stopPropagation();
+      }
+			
+			/*	Use chunked list view for larger tables: We want to chunk the displays so that there is less load time. */
+			
+			/* Called when page loads to display things (Nothing to edit here) */
+			function resumefn(idxStart) {
+        
+				return function() {
+					displayGroup(idxStart);	
+				}();	
+			}
+			
+			/*	Displays the list view in chunks or groups. Number of list entries per chunk can be modified.
+			*	The list view is designed so that each row in the table is represented as a list item. If you touch a particular
+			*	list item, it will expand with more details (that you choose to include). Clicking on this expanded portion will
+			*	take you to the more detailed view.
+			*/
+			function displayGroup(idxStart) {
+				var chunk = 50;		/* Number of rows displayed per 'chunk' - can modify this value */
+				var i;
+				var indexed = data.isIndexed();
+				for (i = idxStart; i < idxStart + chunk; i++) {
+					if (i >= data.getCount()) {
+						break;	
+					}
+          /*
+          * Creates the item space
+          */
+					var item = document.createElement("li");
+					item.setAttribute("class", "item_space");  
+	                item.setAttribute("onClick", "handleClick(" + i + ")");
+					item.innerHTML = data.getData(i, "household_id");
+					document.getElementById("list").appendChild(item);
+		            
+          /*	Creates arrow icon (Nothing to edit here) */
+          var chevron = document.createElement("img");
+					chevron.setAttribute("src", "little_arrow.png");
+					chevron.setAttribute("class", "chevron");
+					item.appendChild(chevron);
+					
+					/*	Adds other data/details in item space
+					*	Replace COLUMN_NAME with the column whose data you want to display as an extra detail etc.
+					*	Duplicate the following block of code for different details you want to add.
+					*	You may replace occurrences of "field1" with new, specific label that are more meaningful to you	
+					*/
+					var field1 = document.createElement("li");
+					field1.setAttribute("class", "detail");
+          var householdId = data.getData(i, "owner");
+					field1.innerHTML = "Owner: " + householdId;
+					item.appendChild(field1);
+          
+          var buttonEditRow = document.createElement("button");
+          console.log("button created: " + buttonEditRow);
+          buttonEditRow.setAttribute("type", "button");
+          buttonEditRow.setAttribute("onclick", "handleEditRowButtonClick(" + i +")");
+          buttonEditRow.innerHTML = "Edit Row With Survey";
+          item.appendChild(buttonEditRow);
+          
+          var buttonAddSurvey = document.createElement("button");
+          console.log("button created: " + buttonAddSurvey);
+          buttonAddSurvey.setAttribute("type", "button");
+          buttonAddSurvey.setAttribute("onclick", 'data.addRowWithSurveyAndSpecificForm("Household Survey", "household_new", null)');
+          buttonAddSurvey.innerHTML = "Add Row With Survey";
+          document.getElementById("wrapper").appendChild(buttonAddSurvey);
+          
+          var buttonAddSurveyPrepop = document.createElement("button");
+          console.log("cutton created: " + buttonAddSurveyPrepop);
+          buttonAddSurveyPrepop.setAttribute("type", "button");
+          prepopMap = {};
+          prepopMap["owner"] = "HayZeus"
+          prepopMap["testEscape"] = 'test&"three'
+          mapStr = JSON.stringify(prepopMap);
+          console.log("mapStr: " + mapStr);
+          buttonAddSurveyPrepop.setAttribute("onclick",
+                                             'handleAddRowWithPrepopulatedForms("Household Survey", "household_new", null, mapStr)');
+          buttonAddSurveyPrepop.innerHTML = "Add row with Survey for HayZeus"
+          document.getElementById("wrapper").appendChild(buttonAddSurveyPrepop);
+				}
+				if (i < data.getCount()) {
+					setTimeout(resumefn, 0, i);	
+				}
+			}
+		</script>
+	</head>
+	<body onload="resumefn(0);">
+		<div id="wrapper">
+			<ul id="list"></ul>
+		</div>
+	</body>
+</html>

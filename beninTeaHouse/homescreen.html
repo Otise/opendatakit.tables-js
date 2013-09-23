@@ -1,0 +1,43 @@
+<!--Menu-->
+<html>
+	<head>
+		<link href="homescreen.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+
+		// This is called to display things.
+		function display() {
+
+            var body = document.getElementById("main");
+		    body.style.background = "url(teaBackground2.jpg)";
+
+			// CustomView$Control#openTableToListViewWithFile(String tableName, String searchText, String filename)
+
+			// Create Menu option: Follow Up with Existing Client
+			// onClick: launches 'Clients' Table
+			var viewHousesButton = document.createElement("button");
+			viewHousesButton.innerHTML = "View Tea Houses";
+			viewHousesButton.setAttribute("onClick", "control.openTableToListViewWithFile('Tea Houses', null, 'beninTeaHouses/beninTeaHouses_list.html')");
+			document.getElementById("wrapper").appendChild(viewHousesButton);	
+
+			// Create Menu option: Follow Up with Existing Client
+			// onClick: launches 'Clients' Table
+			var vewTeasButton = document.createElement("button");
+			vewTeasButton.innerHTML = "View Teas";
+			vewTeasButton.setAttribute("onClick", "control.openTableToListViewWithFile('Tea Inventory', null, 'beninTeaHouses/beninTeaInventory_list.html')");
+			document.getElementById("wrapper").appendChild(vewTeasButton);	
+
+			var vewTeaTypesButton = document.createElement("button");
+			vewTeaTypesButton.innerHTML = "Tea Types";
+			vewTeaTypesButton.setAttribute("onClick", "control.openTableToListViewWithFile('Tea Types', null, 'beninTeaHouses/beninTeaTypes_list.html')");
+			document.getElementById("wrapper").appendChild(vewTeaTypesButton);	
+		}
+		
+		</script>
+	</head>
+
+	<body id = "main" onload="display();">
+		<div id="wrapper">	
+			<h1 color:white>Tea Time in Benin</h1>
+		</div>
+	</body>
+</html>

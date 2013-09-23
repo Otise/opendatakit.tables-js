@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>labResults</h:title>
+    <model>
+      <instance>
+        <labResults id="labResults">
+          <_patient_id/>
+          <_hemoglobin/>
+          <_albumin/>
+          <_gfr_lab/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </labResults>
+      </instance>
+      <bind constraint="regex(., '^[0-9]{5}$')" jr:constraintMsg="Patient ID must be 5 digits" nodeset="/labResults/_patient_id" type="int"/>
+      <bind nodeset="/labResults/_hemoglobin" type="decimal"/>
+      <bind nodeset="/labResults/_albumin" type="decimal"/>
+      <bind nodeset="/labResults/_gfr_lab" type="decimal"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/labResults/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/labResults/_patient_id">
+      <label>Enter 5 digit Patient ID:</label>
+    </input>
+    <input ref="/labResults/_hemoglobin">
+      <label>Hemoglobin</label>
+      <hint>g/dl</hint>
+    </input>
+    <input ref="/labResults/_albumin">
+      <label>Albumin</label>
+      <hint>g/dl</hint>
+    </input>
+    <input ref="/labResults/_gfr_lab">
+      <label>GFR</label>
+      <hint>ml/min</hint>
+    </input>
+  </h:body>
+</h:html>

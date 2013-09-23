@@ -1,0 +1,31 @@
+<!-- Detail View -->
+<html>
+	<head>
+		<link href="patients_detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+			
+			/*	Displays detail view when page loads */
+			function display() {
+				  
+				/*	The following lines of code simply retrieve data from the given COLUMN_NAME and inserts it into the page where specified (by 
+				*	the element id). Displays details from Lab Results form.
+				*/
+				document.getElementById("TITLE").innerHTML = data.get("patient_id");
+				document.getElementById("FIELD_1").innerHTML = data.get("hemoglobin") + " g/dl";
+				document.getElementById("FIELD_2").innerHTML = data.get("albumin") + " g/dl";
+				document.getElementById("FIELD_3").innerHTML = data.get("gfr_lab") + " ml/min";
+			}
+
+		</script>
+	</head>
+	<body id="main" onload="display();">
+		<div class="transparent">
+			<h1><span id="TITLE"></span></h1>
+			<p>Hemoglobin: <span id="FIELD_1"></span></p>
+			<p>Albumin: <span id="FIELD_2"></span></p>
+			<p>GFR: <span id="FIELD_3"></span></p>
+		</div>
+
+		<div id="wrapper"></div>
+	</body>
+</html>	

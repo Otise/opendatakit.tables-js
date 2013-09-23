@@ -1,0 +1,77 @@
+<!--Chunked List View-->
+<html>
+	<head>
+		<link href="patients_list.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+			
+			/*	Open the item specified by the index to the detail view (Nothing to edit here) */
+			function handleClick(index) {
+				control.openItem(index);
+			}
+			
+			/*	Use chunked list view for larger tables: We want to chunk the displays so that there is less load time. */
+			
+			/* Called when page loads to display things (Nothing to edit here) */
+			function resumefn(idxStart) {
+				return function() {
+					displayGroup(idxStart);	
+				}();	
+			}
+			
+			/*	Displays the patient's lab results information in list view format in chunks or groups. Number of list entries per 
+			*	chunk can be modified.
+			*	The list view is designed so that each row in the table is represented as a list item. If you touch a particular
+			*	list item, it will launch a detail view that will display further information about the list item.
+			*/
+			function displayGroup(idxStart) {
+				var chunk = 10;		/* Number of rows displayed per 'chunk' - can modify this value */
+				var i;
+				var indexed = data.isIndexed();
+				for (i = idxStart; i < idxStart + chunk; i++) {
+					if (i >= data.getCount()) {
+						break;	
+					}
+					/*	Creates the item space displaying patient id */
+					var item = document.createElement("li");
+					item.setAttribute("class", "item_space"); 
+	                item.setAttribute("onClick", "handleClick(" + i + ")");
+					item.innerHTML = data.getData(i, "patient_id");
+					document.getElementById("list").appendChild(item);
+		            
+		            /*	Creates arrow icon (Nothing to edit here) */
+		            var chevron = document.createElement("img");
+					chevron.setAttribute("src", "little_arrow.png");
+					chevron.setAttribute("class", "chevron");
+					item.appendChild(chevron);
+					
+					/*	Adds patient's lab results details (hemoglobin, albumin, and GFR) in item space */
+					var field1 = document.createElement("li");
+					field1.setAttribute("class", "detail");
+					field1.innerHTML = "Hemoglobin: " + data.getData(i, "hemoglobin") + " g/dl";
+					item.appendChild(field1);
+
+					var field2 = document.createElement("li");
+					field2.setAttribute("class", "detail");
+					field2.innerHTML = "Albumin: " + data.getData(i, "albumin") + " g/dl";
+					item.appendChild(field2);
+
+					var field3 = document.createElement("li");
+					field3.setAttribute("class", "detail");
+					field3.innerHTML = "GFR: " + data.getData(i, "gfr_lab") + " ml/min";
+					item.appendChild(field3);
+				}
+
+				/* Continue to next 'chunk' (Nothing to edit here) */
+				if (i < data.getCount()) {
+					setTimeout(resumefn, 0, i);	
+				}
+			}
+			
+		</script>
+	</head>
+	<body onload="resumefn(0);">
+		<div id="wrapper">
+			<ul id="list"></ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+/* CSS Stylesheet - TBL_LIB_REFRIGERATORS List View*/
+body {
+	font-family: arial;
+	margin: 0;
+}
+
+h1 { 
+	margin: 0; 
+}
+
+div { position: relative; }
+
+p { 
+	margin: 0; 
+}
+
+.item {
+	border: 2px solid #808080;
+	border-bottom: none;
+	padding: 5px;
+	width: 100%;
+}
+
+.icon {
+	font-size: 20pt;
+	position: absolute;
+	left: 260px;
+	top: 50%;
+}
+
+#subtitle {
+	font-weight: bold;
+	font-size: 16pt;
+}
+
+#wrapper { overflow: scroll; }

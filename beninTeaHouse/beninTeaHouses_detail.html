@@ -1,0 +1,86 @@
+<!-- beninTeaHouses Detailed View -->
+<html>
+	<head>
+		<link href="beninTeaHouses_detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		function display() {
+		  document.getElementById("TITLE").innerHTML = data.get("Name");
+		  document.getElementById("FIELD_2").innerHTML = data.get("State");
+		  document.getElementById("FIELD_3").innerHTML = data.get("Region");
+		  document.getElementById("FIELD_4").innerHTML = data.get("District");
+		  document.getElementById("FIELD_5").innerHTML = data.get("Neighborhood");
+		  
+		  // We're going to get the type name from the Tea Types table.
+		  var typeData = control.query("Tea Types", "Type_id:" + data.get("Specialty_Type_id"));
+		  
+		  document.getElementById("FIELD_6").innerHTML = typeData.getData(0, "Name");
+	      
+	      document.getElementById("FIELD_13").innerHTML = data.get("Date_Opened");
+		  document.getElementById("FIELD_7").innerHTML = data.get("Customers");
+		  document.getElementById("FIELD_18").innerHTML = data.get("Visits");
+		  document.getElementById("FIELD_8").innerHTML = data.get("Latitude");
+		  document.getElementById("FIELD_9").innerHTML = data.get("Longitude");
+		  document.getElementById("FIELD_17").innerHTML = data.get("House_id");
+		  
+		  if(data.get("Iced") === "Yes") {
+			document.getElementById("FIELD_10").checked = true;
+		  }
+		  document.getElementById("FIELD_10").disabled = true;
+		  if(data.get("Hot") === "Yes") {
+			document.getElementById("FIELD_11").checked = true;
+		  }
+		  document.getElementById("FIELD_11").disabled = true;
+		  if(data.get("WiFi") === "Yes") {
+			document.getElementById("FIELD_12").checked = true;
+		  }
+		  document.getElementById("FIELD_12").disabled = true;
+		  
+		  document.getElementById("FIELD_14").innerHTML = data.get("Owner");
+		  document.getElementById("FIELD_15").innerHTML = data.get("Phone_Number");
+		  
+		  var query = "House_id:" + data.get("House_id");
+		  var results = control.query("Tea Inventory", query);
+		  document.getElementById("FIELD_16").innerHTML = results.getCount();
+		  
+		}
+		</script>
+	</head>
+<body onload="display();">
+	<h1><span id="TITLE"></span></h1>
+	<!-- To query and link to the result, replace the placeholders and put the following around the <span></span> tags.
+	<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"></a>
+	
+	Example:<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"><span id="FIELD_1"></span></a>
+	-->
+	<p>Tea House ID: <span id="FIELD_17"</span></p>
+	<p>State: <span id="FIELD_2"></span></p>
+	<p>Region: <span id="FIELD_3"></span></p>
+	<p>District: <span id="FIELD_4"></span></p>
+	<p>Neighborhood: <span id="FIELD_5"></span></p>
+	</br>
+	<p>Specialty: <span id="FIELD_6"></span></p>
+	</br>
+	<p>Opened: <span id="FIELD_13"></span></p>
+	<p>Number of Customers: <span id="FIELD_7"></span></p>
+	<p>Total Number of Visits: <span id="FIELD_18"></span></p>
+	</br>
+	<p>Latitude (GPS): <span id="FIELD_8"></span></p>
+	<p>Longitude(GPS): <span id="FIELD_9"></span></p>
+	</br>
+	<fieldset>
+		<legend>Services:</legend>
+		<input id="FIELD_10" type="checkbox" name="iced" /> Iced
+		</br>
+		<input id="FIELD_11" type="checkbox" name="hot" /> Hot
+		</br>
+		<input id="FIELD_12" type="checkbox" name="wifi" /> WiFi
+	</fieldset>	
+	</br>
+	<h3>Contact Information</h3>
+	<p>Owner: <span id="FIELD_14"></span></p>
+	<p>Mobile number: <span id="FIELD_15"></span></p>
+	</br>
+	<a href="#" onclick="control.openTable('Tea Inventory', 'House_id:' + data.get('House_id'));"><span id="FIELD_16"></span> Teas</a>
+	
+</body>
+</html>

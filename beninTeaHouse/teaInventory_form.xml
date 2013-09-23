@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>teaInventory_form</h:title>
+    <model>
+      <instance>
+        <teaInventory_form id="teaInventory_form">
+          <start/>
+          <end/>
+          <today/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <_Name/>
+          <_Type_id/>
+          <_House_id/>
+          <_Price_8oz/>
+          <_Price_12oz/>
+          <_Price_16oz/>
+          <_Hot/>
+          <_Cold/>
+          <_Loose_Leaf/>
+          <_Bags/>
+          <closing/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </teaInventory_form>
+      </instance>
+      <bind jr:preload="timestamp" jr:preloadParams="start" nodeset="/teaInventory_form/start" type="dateTime"/>
+      <bind jr:preload="timestamp" jr:preloadParams="end" nodeset="/teaInventory_form/end" type="dateTime"/>
+      <bind jr:preload="date" jr:preloadParams="today" nodeset="/teaInventory_form/today" type="date"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/teaInventory_form/deviceid" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="simserial" nodeset="/teaInventory_form/simserial" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="phonenumber" nodeset="/teaInventory_form/phonenumber" type="string"/>
+      <bind nodeset="/teaInventory_form/_Name" type="string"/>
+      <bind nodeset="/teaInventory_form/_Type_id" type="string"/>
+      <bind nodeset="/teaInventory_form/_House_id" type="string"/>
+      <bind nodeset="/teaInventory_form/_Price_8oz" type="decimal"/>
+      <bind nodeset="/teaInventory_form/_Price_12oz" type="decimal"/>
+      <bind nodeset="/teaInventory_form/_Price_16oz" type="decimal"/>
+      <bind nodeset="/teaInventory_form/_Hot" type="select1"/>
+      <bind nodeset="/teaInventory_form/_Cold" type="select1"/>
+      <bind nodeset="/teaInventory_form/_Loose_Leaf" type="select1"/>
+      <bind nodeset="/teaInventory_form/_Bags" type="select1"/>
+      <bind nodeset="/teaInventory_form/closing" readonly="true()" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/teaInventory_form/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <group appearance="field-list">
+      <label>Tea Information</label>
+      <input ref="/teaInventory_form/_Name">
+        <label>Name</label>
+      </input>
+      <input ref="/teaInventory_form/_Type_id">
+        <label>Tea Type Id</label>
+      </input>
+      <input ref="/teaInventory_form/_House_id">
+        <label>Tea House Id</label>
+      </input>
+    </group>
+    <group appearance="field-list">
+      <label>Pricing</label>
+      <input ref="/teaInventory_form/_Price_8oz">
+        <label>Price for 8oz</label>
+      </input>
+      <input ref="/teaInventory_form/_Price_12oz">
+        <label>Price for 12oz</label>
+      </input>
+      <input ref="/teaInventory_form/_Price_16oz">
+        <label>Price for 16oz</label>
+      </input>
+    </group>
+    <group appearance="field-list">
+      <label>Availability</label>
+      <select1 ref="/teaInventory_form/_Hot">
+        <label>Hot</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+      <select1 ref="/teaInventory_form/_Cold">
+        <label>Cold</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+      <select1 ref="/teaInventory_form/_Loose_Leaf">
+        <label>Loose Leaf</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+      <select1 ref="/teaInventory_form/_Bags">
+        <label>Tea Bags</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+    </group>
+    <input ref="/teaInventory_form/closing">
+      <label>Thank you for updating the information for this Tea (<output value=" /teaInventory_form/_Name "/>).</label>
+      <hint>Swipe one more time to end the survey.</hint>
+    </input>
+  </h:body>
+</h:html>

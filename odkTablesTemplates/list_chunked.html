@@ -1,0 +1,88 @@
+<!--Chunked List View-->
+<html>
+	<head>
+		<link href="list.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		
+			/*	Open the item specified by the index to the detail view (Nothing to edit here) */
+			function handleClick(index) {
+				control.openItem(index);
+			}
+			
+			/*	
+       * Use chunked list view for larger tables: We want to chunk the displays 
+       * so that there is less load time. 
+       */
+			
+			/* Called when page loads to display things (Nothing to edit here) */
+			function resumefn(idxStart) {
+				return function() {
+					displayGroup(idxStart);	
+				}();	
+			}
+			
+			/*	
+       * Displays the list view in chunks or groups. Number of list entries per
+       * chunk can be modified.	The list view is designed so that each row in 
+       * the table is represented as a list item. If you touch a particular
+			 * list item, it will launch a detail view that will display further 
+       * information about the list item.
+			 */
+			function displayGroup(idxStart) {
+        /* Number of rows displayed per 'chunk' - can modify this value */
+				var chunk = 10;		
+				var i;
+				var indexed = data.isIndexed();
+				for (i = idxStart; i < idxStart + chunk; i++) {
+					if (i >= data.getCount()) {
+						break;	
+					}
+					/*
+           * Creates the item space
+					 * Replace COLUMN_NAME with the column whose data you want to see for 
+           * all the list items when you open this view.
+					 */
+					var item = document.createElement("li");
+					item.setAttribute("class", "item_space");  
+          item.setAttribute("onClick", "handleClick(" + i + ")");
+					item.innerHTML = data.getData(i, "COLUMN_NAME");
+					document.getElementById("list").appendChild(item);
+		            
+          /*	Creates arrow icon (Nothing to edit here) */
+          var chevron = document.createElement("img");
+					chevron.setAttribute("src", "little_arrow.png");
+					chevron.setAttribute("class", "chevron");
+					item.appendChild(chevron);
+					
+					/*	
+           * Adds other data/details in item space
+					 * Replace COLUMN_NAME with the column whose data you want to display 
+           * as an extra detail etc. Duplicate the following block of code for 
+           * different details you want to add.	You may replace occurrences of 
+           * "field1" with new, specific label that are more meaningful to you.
+					 */
+					var field1 = document.createElement("li");
+					field1.setAttribute("class", "detail");
+					field1.innerHTML = "COLUMN_NAME: " + data.getData(i, "COLUMN_NAME");
+					item.appendChild(field1);
+
+					var field2 = document.createElement("li");
+					field2.setAttribute("class", "detail");
+					field2.innerHTML = "COLUMN_NAME: " + data.getData(i, "COLUMN_NAME");
+					item.appendChild(field2);
+				}
+
+				/* Continue to next 'chunk' (Nothing to edit here) */
+				if (i < data.getCount()) {
+					setTimeout(resumefn, 0, i);	
+				}
+			}
+			
+		</script>
+	</head>
+	<body onload="resumefn(0);">
+		<div id="wrapper">
+			<ul id="list"></ul>
+		</div>
+	</body>
+</html>

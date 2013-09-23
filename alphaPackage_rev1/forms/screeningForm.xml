@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>screeningForm</h:title>
+    <model>
+      <instance>
+        <screeningForm id="screeningForm">
+          <_interviewer_id/>
+          <_age/>
+          <_gender/>
+          <_conditions/>
+          <_gfr/>
+          <_stage/>
+          <_site/>
+          <_consent/>
+          <_patient_id/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </screeningForm>
+      </instance>
+      <bind nodeset="/screeningForm/_interviewer_id" type="string"/>
+      <bind nodeset="/screeningForm/_age" type="int"/>
+      <bind nodeset="/screeningForm/_gender" type="select1"/>
+      <bind nodeset="/screeningForm/_conditions" type="select"/>
+      <bind nodeset="/screeningForm/_gfr" type="decimal"/>
+      <bind nodeset="/screeningForm/_stage" type="select1"/>
+      <bind nodeset="/screeningForm/_site" type="select1"/>
+      <bind nodeset="/screeningForm/_consent" type="select1"/>
+      <bind constraint="regex(., '^[0-9]{5}$')" jr:constraintMsg="Patient ID must be 5 digits" nodeset="/screeningForm/_patient_id" type="int"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/screeningForm/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/screeningForm/_interviewer_id">
+      <label>Enter interviewer initials.</label>
+    </input>
+    <input ref="/screeningForm/_age">
+      <label>Enter patient's age.</label>
+    </input>
+    <select1 ref="/screeningForm/_gender">
+      <label>Specify patient's gender.</label>
+      <item>
+        <label>Male</label>
+        <value>Male</value>
+      </item>
+      <item>
+        <label>Female</label>
+        <value>Female</value>
+      </item>
+    </select1>
+    <select ref="/screeningForm/_conditions">
+      <label>Does the patient have any of the following conditions?</label>
+      <hint>Check all that apply</hint>
+      <item>
+        <label>Diabetes</label>
+        <value>Diabetes</value>
+      </item>
+      <item>
+        <label>Hypertension</label>
+        <value>Hypertension</value>
+      </item>
+      <item>
+        <label>Glomerulonephritis</label>
+        <value>Glomerulonephritis</value>
+      </item>
+      <item>
+        <label>Coronary artery disease</label>
+        <value>CAD</value>
+      </item>
+      <item>
+        <label>Polycystic kidney disease</label>
+        <value>PKD</value>
+      </item>
+    </select>
+    <input ref="/screeningForm/_gfr">
+      <label>GFR (Glomular Filtration Rate):</label>
+      <hint>ml/min</hint>
+    </input>
+    <select1 ref="/screeningForm/_stage">
+      <label>Select patient's CKD stage.</label>
+      <item>
+        <label>Stage 1</label>
+        <value>1</value>
+      </item>
+      <item>
+        <label>Stage 2</label>
+        <value>2</value>
+      </item>
+      <item>
+        <label>Stage 3</label>
+        <value>3</value>
+      </item>
+      <item>
+        <label>Stage 4</label>
+        <value>4</value>
+      </item>
+      <item>
+        <label>Stage 5</label>
+        <value>5</value>
+      </item>
+    </select1>
+    <select1 ref="/screeningForm/_site">
+      <label>Specify enrollment site.</label>
+      <item>
+        <label>PNW Kidney Clinic</label>
+        <value>PNWKC</value>
+      </item>
+      <item>
+        <label>Bayview Medical Center</label>
+        <value>Bayview</value>
+      </item>
+      <item>
+        <label>Alder Hospital</label>
+        <value>Alder</value>
+      </item>
+      <item>
+        <label>Washington Kidney Center</label>
+        <value>WKC</value>
+      </item>
+    </select1>
+    <select1 ref="/screeningForm/_consent">
+      <label>Has the patient consented?</label>
+      <item>
+        <label>Yes</label>
+        <value>Yes</value>
+      </item>
+      <item>
+        <label>No</label>
+        <value>No</value>
+      </item>
+    </select1>
+    <input ref="/screeningForm/_patient_id">
+      <label>Enter 5 digit Patient ID:</label>
+      <hint>Patient ID cannot begin with '0'</hint>
+    </input>
+  </h:body>
+</h:html>

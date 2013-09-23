@@ -1,0 +1,67 @@
+<!-- TBL_IV_REF Detailed View -->
+<html>
+	<head>
+		<link href="beninTeaInventory_detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		function display() {
+		  document.getElementById("TITLE").innerHTML = data.get("Name");
+		  
+		  // We're going to get the type name from the Tea Types table.
+		  var typeData = control.query("Tea Types", "Type_id:" + data.get("Type_id"));		  
+		  document.getElementById("FIELD_1").innerHTML = typeData.getData(0, "Name");
+		  document.getElementById("FIELD_2").innerHTML = data.get("Price_8oz");
+		  document.getElementById("FIELD_3").innerHTML = data.get("Price_12oz");
+		  document.getElementById("FIELD_4").innerHTML = data.get("Price_16oz");
+
+          if(data.get("Hot") === "Yes") {
+			document.getElementById("FIELD_8").checked = true;
+		  }
+		  document.getElementById("FIELD_8").disabled = true;
+		  
+		  if(data.get("Cold") === "Yes") {
+			document.getElementById("FIELD_9").checked = true;
+		  }
+		  document.getElementById("FIELD_9").disabled = true;
+
+          if(data.get("Loose_Leaf") === "Yes") {
+			document.getElementById("FIELD_11").checked = true;
+		  }
+		  document.getElementById("FIELD_11").disabled = true;
+
+          if(data.get("Bags") === "Yes") {
+			document.getElementById("FIELD_12").checked = true;
+		  }
+		  document.getElementById("FIELD_12").disabled = true;
+	
+		  //Use the following lines of code to query a table/get the number of rows of the resulting table
+		  /*
+		  var query = "COL_NAME:" + data.get("COL_NAME");
+		  var results = control.query("TABLE_NAME", query);
+		  document.getElementById("NUM_OF_LINES").innerHTML = results.getCount();
+		  */
+		}
+		</script>
+	</head>
+<body onload="display();">
+	<h1><span id="TITLE"></span></h1>
+	<!-- To query and link to the result, replace the placeholders and put the following around the <span></span> tags.
+	<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"></a>
+	
+	Example:<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"><span id="FIELD_1"></span></a>
+	-->
+	<p>Type: <span id="FIELD_1"></span></p>
+	<p>8oz: <span id="FIELD_2"></span>
+	<br>12oz: <span id="FIELD_3"></span>
+	<br>16oz: <span id="FIELD_4"></span></p>
+	<fieldset>
+		<legend>Offered:</legend>
+		<input id="FIELD_8" type="checkbox" name="hot" /> Hot
+		</br>
+		<input id="FIELD_9" type="checkbox" name="iced" /> Iced
+		</br>
+		<input id="FIELD_11" type="checkbox" name="loose" /> Loose Leaf
+		</br>
+		<input id="FIELD_12" type="checkbox" name="bags" /> Bags
+	</fieldset>	
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!--List View-->
+<html >
+	<head>
+		<link href="patients_list.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">		
+
+			/*	Open the item specified by the index to the detail view (Nothing to edit here) */
+			function handleClick(index) {
+				control.openItem(index);
+			}
+
+			/*	Displays the 'Patients' list view when the page loads.
+			*	The list view is designed so that each row in the table is represented as a list item. If you touch a particular
+			*	list item, it will launch a detail view that will display further information about the list item.
+			*/
+			function display() {
+				for (i = 0; i < data.getCount(); i++) {
+
+					/*	Creates the item space displaying patient id */
+					var item = document.createElement("li");
+					item.setAttribute("class", "item_space");  
+          item.setAttribute("onClick", "handleClick(" + i + ")");
+					item.innerHTML = data.getData(i, "patient_id");
+					document.getElementById("list").appendChild(item);
+		            
+          /*	Creates arrow icon (Nothing to edit here) */
+          var chevron = document.createElement("img");
+					chevron.setAttribute("src", "little_arrow.png");
+					chevron.setAttribute("class", "chevron");
+					item.appendChild(chevron);
+					
+					/*	Adds patient's age and gender information in item space */
+					var field1 = document.createElement("li");
+					field1.setAttribute("class", "detail");
+					field1.innerHTML = "Age: " + data.getData(i, "age");
+					item.appendChild(field1);
+
+					var field2 = document.createElement("li");
+					field2.setAttribute("class", "detail");
+					field2.innerHTML = "Gender: " + data.getData(i, "gender");
+					item.appendChild(field2);
+				}
+			}
+			
+		</script>
+	</head>
+	<body onload="display();">
+		<div id="wrapper">
+			<ul id="list"></ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- beninTeaTypes Detailed View -->
+<html>
+	<head>
+		<link href="beninTeaTypes_detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		function display() {
+		  document.getElementById("TITLE").innerHTML = data.get("Name");
+		  document.getElementById("FIELD_1").innerHTML = data.get("Type_id");
+		  document.getElementById("FIELD_2").innerHTML = data.get("Origin");
+
+		  if(data.get("Caffeinated") === "Yes") {
+			document.getElementById("FIELD_3").checked = true;
+		  }
+		  document.getElementById("FIELD_3").disabled = true;
+		  if(data.get("Fermented") === "Yes") {
+			document.getElementById("FIELD_4").checked = true;
+		  }
+		  document.getElementById("FIELD_4").disabled = true;
+	
+		  //Use the following lines of code to query a table/get the number of rows of the resulting table
+		  /*
+		  var query = "COL_NAME:" + data.get("COL_NAME");
+		  var results = control.query("TABLE_NAME", query);
+		  document.getElementById("NUM_OF_LINES").innerHTML = results.getCount();
+		  */
+		}
+		</script>
+	</head>
+<body onload="display();">
+	<h1><span id="TITLE"></span></h1>
+	<!-- To query and link to the result, replace the placeholders and put the following around the <span></span> tags.
+	<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"></a>
+	
+	Example:<a href="#" onclick="control.openTable('TABLE_NAME', 'COL_NAME:' + data.get('COL_NAME'));"><span id="FIELD_1"></span></a>
+	-->
+	<p>id: <span id="FIELD_1"></span></p>
+	<p>Origin: <span id="FIELD_2"></span></p>
+	<fieldset>
+		<legend>Details:</legend>
+		<input id="FIELD_3" type="checkbox" name="caffeinated" /> Caffeinated
+		</br>
+		<input id="FIELD_4" type="checkbox" name="fermented" /> Fermented
+		</br>
+	</fieldset>	
+</body>
+</html>

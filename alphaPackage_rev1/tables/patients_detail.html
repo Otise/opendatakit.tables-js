@@ -1,0 +1,61 @@
+<!-- Detail View -->
+<html>
+	<head>
+		<link href="patients_detail.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+			
+			/*	Displays detail view when page loads */
+			function display() {
+				  
+				/*	The following lines of code simply retrieve data from the given COLUMN_NAME and inserts it into the page where 
+				*	specified (by the element id). Displays details from screening form.
+				*/
+				document.getElementById("TITLE").innerHTML = data.get("patient_id");
+				document.getElementById("FIELD_1").innerHTML = data.get("age");
+				document.getElementById("FIELD_2").innerHTML = data.get("gender");
+				document.getElementById("FIELD_3").innerHTML = data.get("stage");
+				document.getElementById("FIELD_4").innerHTML = data.get("conditions");
+				document.getElementById("FIELD_5").innerHTML = data.get("site");
+
+				/*	Get the element key of the column with the display name 'patient_id' and use the element key to create a key-to-value map that can be
+				*	interpreted by the specified Collect form.
+				*	Use data.addRowWithCollectAndSpecificFormAndPrepopulatedValues(TABLE_NAME, FORM_ID, FORM_VERSION, 'FORM_ROOT_ELEMENT', JSON_MAP)
+				*	function to launch given Collect form with prepoulated values 
+				*/
+				var elementKey = control.getElementKeyForColumn("Patients", "patient_id");
+				var jsonMap = {};
+				jsonMap[elementKey] = data.get("patient_id");
+				jsonMap = JSON.stringify(jsonMap);		/*	i.e. ["_patient_id":"12345"] */
+				
+				/*	Creates button that launches the follow-up form with prefilled patient id. Responses are saved to 'Patients Follow-Up' table. */
+				var button1 = document.createElement("button");
+				button1.onclick = function() {
+					data.addRowWithCollectAndSpecificFormAndPrepopulatedValues('Patients Follow-Up', 'sixMonthFollowUp', null, 'sixMonthFollowUp', jsonMap);
+				}
+				button1.innerHTML = "Six Months Follow-Up Form";
+				document.getElementById("wrapper").appendChild(button1);
+
+				/*	Creates button that launches the Lab Results form with prefilled patient id. Responses are saved to 'Lab Results' table. */
+				var button2 = document.createElement("button");
+				button2.onclick = function() {
+					data.addRowWithCollectAndSpecificFormAndPrepopulatedValues('Lab Results', 'labResults', null, 'labResults', jsonMap);
+				}
+				button2.innerHTML = "Lab Results Form";
+				document.getElementById("wrapper").appendChild(button2);
+			}
+
+		</script>
+	</head>
+	<body id="main" onload="display();">
+		<div class="transparent">
+			<h1><span id="TITLE"></span></h1>
+			<p>Age: <span id="FIELD_1"></span></p>
+			<p>Gender: <span id="FIELD_2"></span></p>
+			<p>CKD Stage: <span id="FIELD_3"></span></p>
+			<p>Existing Conditions: <span id="FIELD_4"></span></p>
+			<p>Enrollment Site: <span id="FIELD_5"></span></p>
+		</div>
+
+		<div id="wrapper"></div>
+	</body>
+</html>	

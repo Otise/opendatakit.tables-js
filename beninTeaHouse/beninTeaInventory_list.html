@@ -1,0 +1,136 @@
+<!--beninTeaInventory List View-->
+<html>
+	<head>
+		<link href="beninTeaInventory_list.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		function handleClick(index) {
+			control.openItem(index);
+		}
+
+		// We want to chunk the displays so that there is less load
+		// time.
+		
+		// This is called to display things.
+		function resumefn(idxStart) {
+			
+			// first time through we're going to want to
+			// construct up a map to match house ids and
+			// type ids.
+			if (idxStart == 0) {
+				console.log("in idxStart == 0, building map");
+				// First we want to get all the tea houses
+				// from the tea house table and put them in a map.
+				houseNameMap = new Object();
+				var houseData = control.query("Tea Houses", "");
+				for (houseCntr = 0; houseCntr < houseData.getCount(); houseCntr++) {
+					houseNameMap[houseData.getData(houseCntr, "House_id")] =
+						houseData.getData(houseCntr, "Name");
+				}
+				
+				typeNameMap = new Object();
+				var typeData = control.query("Tea Types", "");
+				for (typeCntr = 0; typeCntr < typeData.getCount(); typeCntr++) {
+					typeNameMap[typeData.getData(typeCntr, "Type_id")] =
+						typeData.getData(typeCntr, "Name");	
+				}
+				
+				console.log("done building maps");
+			}
+			
+			console.log("resumefn(" + idxStart + ")");
+			return function() {
+				console.log("wrapper function: " + idxStart);
+				displayGroup(idxStart);	 
+			}();
+			//displayGroup(idxStart);
+		}
+		
+		var facilityNameMap;
+		
+		function displayGroup(idxStart) {
+			console.log("displayGroup(" + idxStart + ")");
+			var indexed = data.isIndexed();
+			var chunk = 50;
+			var i;
+			//for (i = idxStart; i < data.getCount(); i++) {
+			for (i = idxStart; i < idxStart + chunk; i++) {
+				if (i >= data.getCount()) {
+					break;
+				}
+				
+				/*	Creating the item space	*/
+				var item = document.createElement("div");
+				item.setAttribute("class", "item");  
+				
+				var table = document.createElement("table");
+				table.setAttribute("border","0");
+				table.setAttribute("padding","0");
+				table.setAttribute("cellspacing","0");
+				
+				var row = document.createElement("tr");
+				row.setAttribute("height","10px");
+				
+				var cell1 = document.createElement("td");
+				cell1.setAttribute("width","95%");
+				
+				var cell2 = document.createElement("td");
+				
+				var chevron = document.createElement("img");
+				chevron.setAttribute("src", "little_arrow.png");
+				chevron.setAttribute("style", "float:right;margin: 0 5px 0 0;clear:right");
+				chevron.setAttribute("onClick", "handleClick(" + i + ")");
+				cell2.appendChild(chevron);
+				cell2.setAttribute("height","10px");
+				
+				
+				/*	Creating the title/heading	*/
+				var title = document.createElement("h1");
+				title.innerHTML = data.getData(i, "Name");	
+				title.setAttribute("onclick", "handleClick(" + i + ")");
+				cell1.appendChild(title);
+				
+				row.appendChild(cell1);
+				row.appendChild(cell2);
+				table.appendChild(row);
+				item.appendChild(table);
+				
+				/*	Adding other data/details
+					Duplicate the following block of code for different fields if needed
+					Replace all occurrences of "field1" with a new name 	*/
+					
+				var houseId = data.getData(i, "House_id");
+				
+				var houseNameField = document.createElement("p");
+				houseNameField.innerHTML = "Tea House: " +
+					houseNameMap[houseId];
+				item.appendChild(houseNameField);
+				
+				var typeId = data.getData(i, "Type_id");
+				var typeNameField = document.createElement("p");
+				typeNameField.innerHTML = "Type: " + typeNameMap[typeId];
+				item.appendChild(typeNameField);	
+				
+				/*	In the following section, COL_NAME = Indexed Column		*/
+				if(indexed) {		
+					var icon = document.createElement("button");				
+					icon.innerHTML = "(" + data.getCollectionSize(i) + ")";
+					icon.setAttribute("class", "icon");	
+					var query = data.getData(i, "Type_id");
+					icon.setAttribute("onclick", "control.openTable('Type_id', 'COL_NAME:" + query + "');");		
+					item.appendChild(icon);
+				}
+				document.getElementById("wrapper").appendChild(item);
+			}
+			//if (i == idxStart + chunk) {
+			if (i < data.getCount()) {
+				var newEnd = i;
+				// we know we made it to the end, need to do more
+				setTimeout(resumefn, 0, newEnd);	
+			}
+		}
+		</script>
+	</head>
+	<body onload="resumefn(0);">
+	<div id="wrapper"></div>
+	</body>
+</html>

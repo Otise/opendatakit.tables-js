@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>sixMonthFollowUp</h:title>
+    <model>
+      <instance>
+        <sixMonthFollowUp id="sixMonthFollowUp">
+          <_patient_id/>
+          <_num_meds/>
+          <_change_meds/>
+          <_gfr_followUp/>
+          <_stage_followUp/>
+          <_sig_event/>
+          <_condition_change/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </sixMonthFollowUp>
+      </instance>
+      <bind constraint="regex(., '^[0-9]{5}$')" jr:constraintMsg="Patient ID must be 5 digits" nodeset="/sixMonthFollowUp/_patient_id" type="int"/>
+      <bind nodeset="/sixMonthFollowUp/_num_meds" type="int"/>
+      <bind nodeset="/sixMonthFollowUp/_change_meds" type="select1"/>
+      <bind nodeset="/sixMonthFollowUp/_gfr_followUp" type="decimal"/>
+      <bind nodeset="/sixMonthFollowUp/_stage_followUp" type="select1"/>
+      <bind nodeset="/sixMonthFollowUp/_sig_event" type="string"/>
+      <bind nodeset="/sixMonthFollowUp/_condition_change" type="select1"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/sixMonthFollowUp/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/sixMonthFollowUp/_patient_id">
+      <label>Patient ID:</label>
+    </input>
+    <input ref="/sixMonthFollowUp/_num_meds">
+      <label>Specify number of medications patient is currently taking.</label>
+    </input>
+    <select1 ref="/sixMonthFollowUp/_change_meds">
+      <label>Were there any medication changes since screening and enrollment?</label>
+      <item>
+        <label>Yes</label>
+        <value>Yes</value>
+      </item>
+      <item>
+        <label>No</label>
+        <value>No</value>
+      </item>
+    </select1>
+    <input ref="/sixMonthFollowUp/_gfr_followUp">
+      <label>GFR (Glomular Filtration Rate):</label>
+      <hint>ml/min</hint>
+    </input>
+    <select1 ref="/sixMonthFollowUp/_stage_followUp">
+      <label>Select patient's CKD stage.</label>
+      <item>
+        <label>Stage 1</label>
+        <value>1</value>
+      </item>
+      <item>
+        <label>Stage 2</label>
+        <value>2</value>
+      </item>
+      <item>
+        <label>Stage 3</label>
+        <value>3</value>
+      </item>
+      <item>
+        <label>Stage 4</label>
+        <value>4</value>
+      </item>
+      <item>
+        <label>Stage 5</label>
+        <value>5</value>
+      </item>
+    </select1>
+    <input ref="/sixMonthFollowUp/_sig_event">
+      <label>Record any events of significance since the previous visit to the clinic (e.g. new symptoms, outpatient procedures, or hospitalizations)</label>
+    </input>
+    <select1 ref="/sixMonthFollowUp/_condition_change">
+      <label>Has the patient's condition improved, worsened or stayed the same since the previous visit to the clinic?</label>
+      <item>
+        <label>Improved</label>
+        <value>Improved</value>
+      </item>
+      <item>
+        <label>Worsened</label>
+        <value>Worsened</value>
+      </item>
+      <item>
+        <label>Stayed the same</label>
+        <value>No_Change</value>
+      </item>
+    </select1>
+  </h:body>
+</h:html>

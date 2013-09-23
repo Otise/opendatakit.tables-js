@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>teaHouse_form</h:title>
+    <model>
+      <instance>
+        <teaHouse_form id="teaHouse_form">
+          <start/>
+          <end/>
+          <today/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <_House_id/>
+          <_Name/>
+          <_State/>
+          <_Region/>
+          <_District/>
+          <_Neighborhood/>
+          <_Latitude/>
+          <_Longitude/>
+          <_Specialty_Type_id/>
+          <_Iced/>
+          <_Hot/>
+          <_WiFi/>
+          <_Owner/>
+          <_Phone_Number/>
+          <_Date_Opened/>
+          <_Customers/>
+          <_Visits/>
+          <closing/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </teaHouse_form>
+      </instance>
+      <bind jr:preload="timestamp" jr:preloadParams="start" nodeset="/teaHouse_form/start" type="dateTime"/>
+      <bind jr:preload="timestamp" jr:preloadParams="end" nodeset="/teaHouse_form/end" type="dateTime"/>
+      <bind jr:preload="date" jr:preloadParams="today" nodeset="/teaHouse_form/today" type="date"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/teaHouse_form/deviceid" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="simserial" nodeset="/teaHouse_form/simserial" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="phonenumber" nodeset="/teaHouse_form/phonenumber" type="string"/>
+      <bind nodeset="/teaHouse_form/_House_id" type="string"/>
+      <bind nodeset="/teaHouse_form/_Name" type="string"/>
+      <bind nodeset="/teaHouse_form/_State" type="string"/>
+      <bind nodeset="/teaHouse_form/_Region" type="string"/>
+      <bind nodeset="/teaHouse_form/_District" type="string"/>
+      <bind nodeset="/teaHouse_form/_Neighborhood" type="string"/>
+      <bind nodeset="/teaHouse_form/_Latitude" type="decimal"/>
+      <bind nodeset="/teaHouse_form/_Longitude" type="decimal"/>
+      <bind nodeset="/teaHouse_form/_Specialty_Type_id" type="string"/>
+      <bind nodeset="/teaHouse_form/_Iced" type="select1"/>
+      <bind nodeset="/teaHouse_form/_Hot" type="select1"/>
+      <bind nodeset="/teaHouse_form/_WiFi" type="select1"/>
+      <bind nodeset="/teaHouse_form/_Owner" type="string"/>
+      <bind nodeset="/teaHouse_form/_Phone_Number" type="int"/>
+      <bind nodeset="/teaHouse_form/_Date_Opened" type="date"/>
+      <bind nodeset="/teaHouse_form/_Customers" type="int"/>
+      <bind nodeset="/teaHouse_form/_Visits" type="int"/>
+      <bind nodeset="/teaHouse_form/closing" readonly="true()" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/teaHouse_form/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <group appearance="field-list">
+      <label>Tea Type Information</label>
+      <input ref="/teaHouse_form/_House_id">
+        <label>Tea House Id</label>
+      </input>
+      <input ref="/teaHouse_form/_Name">
+        <label>Name</label>
+      </input>
+    </group>
+    <group appearance="field-list">
+      <label>Location</label>
+      <input ref="/teaHouse_form/_State">
+        <label>State</label>
+      </input>
+      <input ref="/teaHouse_form/_Region">
+        <label>Region</label>
+      </input>
+      <input ref="/teaHouse_form/_District">
+        <label>District</label>
+      </input>
+      <input ref="/teaHouse_form/_Neighborhood">
+        <label>Neighborhood</label>
+      </input>
+    </group>
+    <group appearance="field-list">
+      <label>GPS</label>
+      <input ref="/teaHouse_form/_Latitude">
+        <label>Latitude to edit</label>
+      </input>
+      <input ref="/teaHouse_form/_Longitude">
+        <label>Longitude to edit</label>
+      </input>
+    </group>
+    <group appearance="field-list">
+      <label>Information</label>
+      <input ref="/teaHouse_form/_Specialty_Type_id">
+        <label>Id of Specialty Type of Tea</label>
+      </input>
+      <select1 ref="/teaHouse_form/_Iced">
+        <label>Tea Available Iced</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+      <select1 ref="/teaHouse_form/_Hot">
+        <label>Tea Available Hot</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+      <select1 ref="/teaHouse_form/_WiFi">
+        <label>WiFi Available</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+    </group>
+    <group appearance="field-list">
+      <label>Administrivia</label>
+      <input ref="/teaHouse_form/_Owner">
+        <label>Owner</label>
+      </input>
+      <input ref="/teaHouse_form/_Phone_Number">
+        <label>Phone Number</label>
+      </input>
+      <input ref="/teaHouse_form/_Date_Opened">
+        <label>Date Opened</label>
+      </input>
+      <input ref="/teaHouse_form/_Customers">
+        <label>Number of Customers</label>
+      </input>
+      <input ref="/teaHouse_form/_Visits">
+        <label>Number of Visits Per Year</label>
+      </input>
+    </group>
+    <input ref="/teaHouse_form/closing">
+      <label>Thank you for updating the information for this Tea House (<output value=" /teaHouse_form/_Name "/>).</label>
+      <hint>Swipe one more time to end the survey.</hint>
+    </input>
+  </h:body>
+</h:html>

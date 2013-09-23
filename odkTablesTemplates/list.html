@@ -1,0 +1,70 @@
+<!--List View-->
+<html >
+	<head>
+		<link href="clients_list.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript">
+		
+			/*	Open the item specified by the index to the detail view (Nothing to edit here) */
+			function handleClick(index) {
+				control.openItem(index);
+			}
+
+			/*	
+			 * Displays the list view when the page loads.
+			 * The list view is designed so that each row in 
+			 * the table is represented as a list item. If you touch a 
+			 * particular list item, it will launch a detail view that 
+			 * will display further information about the list item.
+			 */
+			function display() {
+				for (i = 0; i < data.getCount(); i++) {
+
+					/* 
+					 * Creates the item space.	
+					 * Replace COLUMN_NAME with the column whose data you 
+					 * want to see for all the list items when you open 
+					 * this view.
+					 */
+					var item = document.createElement("li");
+					item.setAttribute("class", "item_space");  
+          item.setAttribute("onClick", "handleClick(" + i + ")");
+					item.innerHTML = data.getData(i, "COLUMN_NAME");
+					document.getElementById("list").appendChild(item);
+		            
+          /*	Creates arrow icon (Nothing to edit here) */
+          var chevron = document.createElement("img");
+					chevron.setAttribute("src", "little_arrow.png");
+					chevron.setAttribute("class", "chevron");
+					item.appendChild(chevron);
+					
+					/*	
+					 * Adds other data/details in item space
+					 * Replace COLUMN_NAME with the column whose 
+					 * data you want to display as an extra detail etc.
+					 * Duplicate the following block of code for different
+					 * details you want to add. You may replace occurrences 
+					 * of "field1" with new, specific label that are more 
+					 * meaningful to you	
+					 */
+					var field1 = document.createElement("li");
+					field1.setAttribute("class", "detail");
+					field1.innerHTML = "COLUMN_NAME: " + data.getData(i, "COLUMN_NAME");
+					item.appendChild(field1);
+
+					var field2 = document.createElement("li");
+					field2.setAttribute("class", "detail");
+					field2.innerHTML = "COLUMN_NAME: " + data.getData(i, "COLUMN_NAME");
+					item.appendChild(field2);
+
+				}
+			}
+			
+		</script>
+	</head>
+
+	<body onload="display();">
+		<div id="wrapper">
+			<ul id="list"></ul>
+		</div>
+	</body>
+</html>

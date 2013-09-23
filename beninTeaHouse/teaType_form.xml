@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>teaType_form</h:title>
+    <model>
+      <instance>
+        <teaType_form id="teaType_form">
+          <start/>
+          <end/>
+          <today/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <_Type_id/>
+          <_Name/>
+          <_Origin/>
+          <_Caffeinated/>
+          <_Fermented/>
+          <closing/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </teaType_form>
+      </instance>
+      <bind jr:preload="timestamp" jr:preloadParams="start" nodeset="/teaType_form/start" type="dateTime"/>
+      <bind jr:preload="timestamp" jr:preloadParams="end" nodeset="/teaType_form/end" type="dateTime"/>
+      <bind jr:preload="date" jr:preloadParams="today" nodeset="/teaType_form/today" type="date"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/teaType_form/deviceid" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="simserial" nodeset="/teaType_form/simserial" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="phonenumber" nodeset="/teaType_form/phonenumber" type="string"/>
+      <bind nodeset="/teaType_form/_Type_id" type="string"/>
+      <bind nodeset="/teaType_form/_Name" type="string"/>
+      <bind nodeset="/teaType_form/_Origin" type="string"/>
+      <bind nodeset="/teaType_form/_Caffeinated" type="select1"/>
+      <bind nodeset="/teaType_form/_Fermented" type="select1"/>
+      <bind nodeset="/teaType_form/closing" readonly="true()" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/teaType_form/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <group appearance="field-list">
+      <label>Tea Type Information</label>
+      <input ref="/teaType_form/_Type_id">
+        <label>Tea Type Id</label>
+      </input>
+      <input ref="/teaType_form/_Name">
+        <label>Name</label>
+      </input>
+      <input ref="/teaType_form/_Origin">
+        <label>Country of Origin</label>
+      </input>
+    </group>
+    <group appearance="field-list">
+      <label>Traits</label>
+      <select1 ref="/teaType_form/_Caffeinated">
+        <label>Caffeinated</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+      <select1 ref="/teaType_form/_Fermented">
+        <label>Fermented</label>
+        <item>
+          <label>No</label>
+          <value>No</value>
+        </item>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select1>
+    </group>
+    <input ref="/teaType_form/closing">
+      <label>Thank you for updating the information for this tea (<output value=" /teaType_form/_Name "/>).</label>
+      <hint>Swipe one more time to end the survey.</hint>
+    </input>
+  </h:body>
+</h:html>
