@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+<link href="teststyle.css" rel="stylesheet" type='text/css'>
+<style>
+
+body {
+  overflow-y:scroll;
+  font-family: Arial;
+}
+
+text {
+  font: 12px sans-serif;
+}
+
+</style>
+<body class='with-transitions'>
+<div class='navigation'>
+          Tests:
+          <a href="lineChartTest.html">Line Chart</a>
+          <a href="stackedAreaChartTest.html">Stacked Area</a>
+          <a href="../examples/cumulativeLineChart.html">Cumulative Line</a>
+          <a href="ScatterChartTest.html">Scatter</a>
+          <a href="realTimeChartTest.html">Real time test</a>
+  </div>
+<div class='chart third' id="test1">
+  <h2>Standard Pie Chart</h2>
+  <svg></svg>
+</div>
+
+<script src="d3.v3.min.js" type="text/javascript"></script>
+<link href="nv.d3.min.css" type="text/css" rel="stylesheet" />
+<script src="nv.d3.min.js" type="text/javascript"></script>
+<script>
+
+var testdata = [
+    {
+      key: "One",
+      y: 5
+    },
+    {
+      key: "Two",
+      y: 2
+    },
+    {
+      key: "Three",
+      y: 9
+    },
+    {
+      key: "Four",
+      y: 7
+    },
+    {
+      key: "Five",
+      y: 4
+    },
+    {
+      key: "Six",
+      y: 3
+    },
+    {
+      key: "Seven",
+      y: .5
+    }
+  ];
+
+function defaultChart(containerId, data, labelType) {
+  nv.addGraph(function() {
+      var width = 500,
+          height = 500;
+
+      var chart = nv.models.pieChart()
+          .x(function(d) { return d.key })
+          .y(function(d) { return d.y })
+          .color(d3.scale.category10().range())
+          .width(width)
+          .height(height)
+          .labelType(labelType)
+          ;
+
+        d3.select("#" + containerId + " svg")
+            .datum(data)
+          .transition().duration(1200)
+            .attr('width', width)
+            .attr('height', height)
+            .call(chart);
+
+      return chart;
+  });
+}
+
+defaultChart("test1", testdata);
+</script>
